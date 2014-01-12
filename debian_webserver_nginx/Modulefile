@@ -1,0 +1,1 @@
+dependency 'puppetlabs/stdlib', '>= 0.1.6'

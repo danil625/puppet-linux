@@ -1,0 +1,1 @@
+class { 'debian_server': }
