@@ -6,3 +6,6 @@ class debian_server {
     include debian_server::services
 
 }
+
+#include debian_server
+
