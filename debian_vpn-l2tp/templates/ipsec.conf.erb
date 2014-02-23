@@ -1,0 +1,39 @@
+# /etc/ipsec.conf - Openswan IPsec configuration file
+
+# This file:  /usr/share/doc/openswan/ipsec.conf-sample
+#
+# Manual:     ipsec.conf.5
+
+
+version	2.0	# conforms to second version of ipsec.conf specification
+
+# basic configuration
+config setup
+	dumpdir=/var/run/pluto/
+	nat_traversal=yes
+	virtual_private=%v4:   int.vpn.NET/CIDR			!!!!!!!!!!!!!!!!!!
+	oe=off
+	protostack=netkey
+
+conn L2TP-PSK-NAT
+    rightsubnet=vhost:%priv
+    also=L2TP-PSK-noNAT
+    compress=yes
+
+conn L2TP-PSK-noNAT
+    authby=secret
+    auto=add
+    keyingtries=3
+    rekey=no
+    type=transport
+    left=  ext IP				!!!!!!!!!!!!!!!!!!!
+    leftprotoport=17/1701
+    right=%any
+    rightprotoport=17/%any
+    dpddelay=15
+    dpdtimeout=30
+    dpdaction=clear
+    pfs=no
+    keyexchange=ike
+    ike=aes128-sha1-modp1024
+    esp=aes128-sha1

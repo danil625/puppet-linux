@@ -1,0 +1,13 @@
+[global]
+listen-addr = ext.IP				!!!!!!!!!!!!!!!!!!
+
+[lns default]
+ip range = int.ip.from-int.ip.to ; * Allocate from this IP range		!!!!!!!!!!!!!!!
+local ip = int.IP.local    ; * Our local IP to use		!!!!!!!!!!!!!!!!!!!
+length bit = yes      ; * Use length bit in payload?
+refuse pap = yes      ; * Refuse PAP authentication
+refuse chap = yes      ; * Refuse CHAP authentication
+require authentication = yes   ; * Require peer to authenticate
+ppp debug = yes      ; * Turn on PPP debugging
+
+pppoptfile = /etc/ppp/options.l2tpd ; * ppp options file

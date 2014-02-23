@@ -1,0 +1,20 @@
+require-mschap-v2
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+asyncmap 0
+auth
+crtscts
+idle 1800
+mru 1200
+mtu 1200
+lock
+hide-password
+modem
+debug
+name l2tpd
+proxyarp
+lcp-echo-interval 30
+lcp-echo-failure 4
+nodefaultroute
+connect-delay 5000
+logfile /var/log/l2tpd.log

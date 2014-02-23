@@ -1,0 +1,54 @@
+*nat
+
+############## we make just outbound nat'ed connections
+
+-A POSTROUTING -o eth0 -s int.vpn.net/cidr -j MASQUERADE			!!!!!!!!!!!!!!!!!!
+
+
+COMMIT
+##########################################################################################
+
+*filter
+
+# allow loopback
+-A INPUT -i lo -j ACCEPT
+-A INPUT ! -i lo -d 127.0.0.0/8 -j DROP
+
+# accept all established inbound connections
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+
+########################
+## O U T B O U N D
+########################
+
+# allow vpn clients out to Internet
+-A FORWARD -s int.vpn.net/cidr -j ACCEPT			!!!!!!!!!!!!!!!!!
+
+# allow outbound traffic from myself
+-A OUTPUT -j ACCEPT
+
+########################
+## I N B O U N D
+########################
+
+# allow ping
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+
+# allow ssh
+-A INPUT -p tcp --dport 22 -j ACCEPT -m state --state NEW
+# allow ipsec & l2tp
+-A INPUT -p udp --dport 500 -j ACCEPT -m state --state NEW
+-A INPUT -p udp --dport 1701 -j ACCEPT -m state --state NEW
+-A INPUT -p udp --dport 4500 -j ACCEPT -m state --state NEW
+# enable dhcp
+#-A INPUT -i tun0 -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+
+###############################
+## F I N A L   R E J E C T S
+###############################
+-A INPUT -j DROP
+-A FORWARD -j DROP
+
+COMMIT
