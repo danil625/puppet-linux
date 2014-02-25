@@ -23,4 +23,8 @@ class debian_server::packages {
         ensure => latest
     }
 
+    package { 'unattended-upgrades':
+        ensure => latest
+    }
+
 }
