@@ -11,6 +11,10 @@ class debian_server::packages {
         ensure => latest
     }
 
+    package { 'tmux':
+        ensure => latest
+    }
+
     package { 'lynx-cur':
         ensure => latest
     }
