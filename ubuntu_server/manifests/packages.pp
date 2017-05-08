@@ -38,4 +38,12 @@ class ubuntu_server::packages {
         ensure => latest
     }
 
+    package { 'unattended-upgrades':
+        ensure => latest
+    }
+
+    package { 'sudo':
+        ensure => latest
+    }
+
 }
