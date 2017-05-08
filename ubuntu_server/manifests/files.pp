@@ -10,12 +10,11 @@ class ubuntu_server::files {
         content => template('ubuntu_server/20auto-upgrades.erb')
     }
 
-    file { 'root_authorized_keys':
-        path	=> '/root/.ssh/authorized_keys',
-        ensure	=> present,
-        mode	=> 0600,
-        owner	=> 'root',
-        group	=> 'root'
+    file { '/home/ubuntu/.ssh':
+    	ensure	=> 'directory',
+    	mode	=> '0700',
+        owner	=> 'ubuntu',
+        group	=> 'ubuntu'
     }
 
     file { 'ubuntu_authorized_keys':
@@ -23,7 +22,24 @@ class ubuntu_server::files {
         ensure	=> present,
         mode	=> 0600,
         owner	=> 'ubuntu',
-        group	=> 'ubuntu'
+        group	=> 'ubuntu',
+        require	=> File['/home/ubuntu/.ssh']
+    }
+
+    file { '/root/.ssh':
+    	ensure	=> 'directory',
+    	mode	=> '0700',
+        owner	=> 'root',
+        group	=> 'root'
+    }
+
+    file { 'root_authorized_keys':
+        path	=> '/root/.ssh/authorized_keys',
+        ensure	=> present,
+        mode	=> '0600',
+        owner	=> 'root',
+        group	=> 'root',
+        require	=> File['/root/.ssh']
     }
 
     file { 'sudoer-ubuntu':
