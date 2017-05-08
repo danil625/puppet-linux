@@ -1,6 +1,6 @@
 class debian_webserver_nginx::nginx {
 
-    package { 'nginx':
+    package { 'nginx-full':
         ensure	=> latest
     }
 
@@ -11,7 +11,7 @@ class debian_webserver_nginx::nginx {
         owner	=> 'root',
         group	=> 'root',
         notify	=> Service['nginx'],
-        require	=> Package['nginx']
+        require	=> Package['nginx-full']
     }
 
     file { 'global':
@@ -20,7 +20,7 @@ class debian_webserver_nginx::nginx {
         mode	=> 0755,
         owner	=> 'root',
         group	=> 'root',
-        require	=> Package['nginx']
+        require	=> Package['nginx-full']
     }
 
     file { 'php.conf':
@@ -38,7 +38,7 @@ class debian_webserver_nginx::nginx {
         enable	=> true,
         #subscribe => File['nginx.conf'],
         #subscribe => File['php.conf'],
-        require	=> Package['nginx']
+        require	=> Package['nginx-full']
     }
 
 }

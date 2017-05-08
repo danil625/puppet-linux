@@ -25,6 +25,12 @@ class debian_webserver_nginx::php {
         require => Package['php5-fpm']
     }
 
+    file_line { 'gc_maxlifetime':
+        path	=> '/etc/php5/fpm/php.ini',
+        line	=> 'session.gc_maxlifetime=15552000',
+        require => Package['php5-fpm']
+    }
+
     service { 'php5-fpm':
         ensure	=> running,
         enable	=> true,
