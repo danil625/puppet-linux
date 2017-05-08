@@ -1,6 +1,5 @@
 class ubuntu_server {
-    #include '::ntp'
-    include ssh
+    #include ssh
 
     include ubuntu_server::packages
     include ubuntu_server::services
